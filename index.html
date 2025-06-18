@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>औपचारिक सूचना पत्र</title>
+    <style>
+        body {
+            font-family: 'Noto Sans Devanagari', Arial, sans-serif;
+            background-color: #f0f0f0;
+            margin: 20px;
+            line-height: 1.6;
+        }
+        .document {
+            background-color: white;
+            max-width: 600px;
+            margin: 0 auto;
+            padding: 30px;
+            border: 2px solid #333;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+        }
+        .header {
+            text-align: center;
+            text-decoration: underline;
+            font-weight: bold;
+            font-size: 18px;
+            margin-bottom: 20px;
+        }
+        .recipient {
+            margin-bottom: 15px;
+        }
+        .recipient-name {
+            border-bottom: 1px dotted #333;
+            min-width: 300px;
+            display: inline-block;
+            padding: 2px 5px;
+            background-color: #f9f9f9;
+        }
+        .content {
+            margin: 20px 0;
+            text-align: justify;
+        }
+        .shraddh-box {
+            border: 2px solid #333;
+            padding: 15px;
+            margin: 20px 0;
+            text-align: center;
+        }
+        .shraddh-title {
+            font-weight: bold;
+            margin-bottom: 10px;
+            text-decoration: underline;
+        }
+        .dates {
+            margin: 10px 0;
+        }
+        .location {
+            margin: 15px 0;
+            font-weight: bold;
+        }
+        .footer {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 30px;
+        }
+        .contact-info {
+            text-align: left;
+        }
+        .signature {
+            text-align: right;
+        }
+        .editable {
+            background-color: #fff3cd;
+            border: 1px dashed #856404;
+            padding: 2px 5px;
+            border-radius: 3px;
+        }
+        .edit-btn {
+            background-color: #007bff;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            margin: 10px;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        .edit-btn:hover {
+            background-color: #0056b3;
+        }
+        .edit-controls {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div class="edit-controls">
+        <button class="edit-btn" onclick="toggleEdit()">संपादन मोड चालू/बंद करें</button>
+        <button class="edit-btn" onclick="printDocument()">प्रिंट करें</button>
+    </div>
+
+    <div class="document" id="document">
+        <div class="header">!! श्राद्ध-संदेश !!</div>
+        
+        <div class="recipient">
+            सेवा में,<br>
+            श्रीमान/श्रीमती: <span class="recipient-name editable" contenteditable="false" placeholder="नाम यहाँ लिखें">.......................................</span>
+        </div>
+        
+        <div>
+            मान्यवर,
+        </div>
+        
+        <div class="content">
+            अत्यंत दुःख के साथ सूचित करना पड़ रहा है कि मेरे पूजनीय पिताजी (<span class="editable" contenteditable="false">गुलाब चन्द सिंह</span>) अपनी जीवन यात्रा को अपूर्णित करते हुए स्वर्गारोहण दिनांक-<span class="editable" contenteditable="false">11.06.2025</span> (बुधवार) को कर गये जिनका यज्ञीय कर्म निम्न प्रकार है। आप सभी से आग्रह है कि उनके अंतिम कर्म में शामिल होकर उनकी आत्मा की शांति हेतु प्रार्थना करें।
+        </div>
+        
+        <div class="shraddh-box">
+            <div class="shraddh-title">-- श्राद्ध कार्यक्रम --</div>
+            <div class="dates">
+                दिनांक- <span class="editable" contenteditable="false">20-06-2025</span>-(शुक्रवार) दशकर्म<br>
+                दिनांक- <span class="editable" contenteditable="false">23-06-2025</span>-(सोमवार) श्राद्धकर्म एवं ब्रह्मभोज
+            </div>
+            <div class="location">
+                कार्यक्रम स्थल- <span class="editable" contenteditable="false">आजाद नगर, दीघा, पटना</span>
+            </div>
+        </div>
+        
+        <div class="footer">
+            <div class="contact-info">
+                शोकाकुल:-<br>
+                <span class="editable" contenteditable="false">समस्त परिवार</span><br>
+                मो: <span class="editable" contenteditable="false">9891308003</span><br>
+                <span class="editable" contenteditable="false">9308413839</span>
+            </div>
+            <div class="signature">
+                निवेदक:<br>
+                <span class="editable" contenteditable="false">अनुराग कुमार सिंह</span><br>
+                <span class="editable" contenteditable="false">आजाद नगर, दीघा, पटना</span>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        let editMode = false;
+        
+        function toggleEdit() {
+            editMode = !editMode;
+            const editableElements = document.querySelectorAll('.editable');
+            editableElements.forEach(element => {
+                element.contentEditable = editMode;
+                if (editMode) {
+                    element.style.backgroundColor = '#fff3cd';
+                    element.style.border = '1px dashed #856404';
+                } else {
+                    element.style.backgroundColor = 'transparent';
+                    element.style.border = 'none';
+                }
+            });
+            
+            if (editMode) {
+                alert('संपादन मोड चालू है। पीले रंग के क्षेत्रों पर क्लिक करके संपादित करें।');
+            }
+        }
+        
+        function printDocument() {
+            // Hide edit controls before printing
+            const controls = document.querySelector('.edit-controls');
+            controls.style.display = 'none';
+            
+            // Remove edit styling
+            const editableElements = document.querySelectorAll('.editable');
+            editableElements.forEach(element => {
+                element.style.backgroundColor = 'transparent';
+                element.style.border = 'none';
+            });
+            
+            window.print();
+            
+            // Restore after printing
+            setTimeout(() => {
+                controls.style.display = 'block';
+                if (editMode) {
+                    editableElements.forEach(element => {
+                        element.style.backgroundColor = '#fff3cd';
+                        element.style.border = '1px dashed #856404';
+                    });
+                }
+            }, 1000);
+        }
+        
+        // Auto-save functionality
+        document.addEventListener('input', function(e) {
+            if (e.target.classList.contains('editable')) {
+                localStorage.setItem('shraddh_form_' + e.target.className, e.target.textContent);
+            }
+        });
+        
+        // Load saved data on page load
+        window.addEventListener('load', function() {
+            const editableElements = document.querySelectorAll('.editable');
+            editableElements.forEach(element => {
+                const saved = localStorage.getItem('shraddh_form_' + element.className);
+                if (saved && saved !== 'null') {
+                    element.textContent = saved;
+                }
+            });
+        });
+    </script>
+</body>
+</html>
